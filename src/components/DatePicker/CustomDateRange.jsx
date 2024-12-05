@@ -1,33 +1,32 @@
-// CustomDateRange.js
-import React, { useEffect } from 'react';
+import React from 'react';
 import DateInput from './DateInput';
 
-const CustomDateRange = ({ startDate, endDate, setStartDate, setEndDate, customStyles }) => {
+const CustomDateRange = ({ onRangeChange, startDate, endDate, styles }) => {
     const handleStartDateChange = (date) => {
-        if (new Date(date) <= new Date(endDate)) {
-            setStartDate(date);
+        if (new Date(date) <= new Date(endDate) || !endDate) {
+            onRangeChange(date, endDate);
         }
     };
 
     const handleEndDateChange = (date) => {
-        if (new Date(date) >= new Date(startDate)) {
-            setEndDate(date);
+        if (new Date(date) >= new Date(startDate) || !startDate) {
+            onRangeChange(startDate, date);
         }
     };
 
     return (
         <div>
+            <label style={styles.label}>From:</label>
             <DateInput
-                label="From"
                 value={startDate}
                 onChange={handleStartDateChange}
-                customStyles={customStyles}
+                styles={styles.inputField}
             />
+            <label style={styles.label}>To:</label>
             <DateInput
-                label="To"
                 value={endDate}
                 onChange={handleEndDateChange}
-                customStyles={customStyles}
+                styles={styles.inputField}
             />
         </div>
     );

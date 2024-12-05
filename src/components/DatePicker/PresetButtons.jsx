@@ -1,14 +1,22 @@
-// PresetButtons.js
 import React from 'react';
 
-const PresetButtons = ({ handlePresetClick }) => {
+const PresetButtons = ({ onPresetClick, selectedPreset, styles }) => {
+    const presets = ['Today', 'Yesterday', 'This Month', 'Last Month', 'Custom Range'];
+
     return (
-        <div>
-            <button onClick={() => handlePresetClick('Today')}>Today</button>
-            <button onClick={() => handlePresetClick('Yesterday')}>Yesterday</button>
-            <button onClick={() => handlePresetClick('ThisMonth')}>This Month</button>
-            <button onClick={() => handlePresetClick('LastMonth')}>Last Month</button>
-            <button onClick={() => handlePresetClick('CustomRange')}>Custom Range</button>
+        <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+            {presets.map((preset) => (
+                <button
+                    key={preset}
+                    onClick={() => onPresetClick(preset)}
+                    style={{
+                        ...styles.presetButton,
+                        ...(selectedPreset === preset ? styles.activeButton : {}),
+                    }}
+                >
+                    {preset}
+                </button>
+            ))}
         </div>
     );
 };
